@@ -1,0 +1,1221 @@
+/*
+Theme Name: FALVÉ
+Theme URI: http://falve.co.nz
+Description: Custom theme for FALVÉ
+Version: 1.0
+Author: Jamie Ferguson
+Author URI: http://jppferguson.com
+
+/* ------------------------------ */ 
+/* ! Contents                     */
+/* -------------------------------
+ *
+ * - 00. References
+ * - 01. Reset
+ * - 02. Base/Useful styles
+ * - 03. Grid framework
+ * - 04. Icon framework
+ * - 05. Layout styles
+ * - 06. Nav styles
+ * - 07. Heading styles
+ * - 08. List styles
+ * - 09. Images
+ * - 10. Links
+ * - 11. Forms
+ * - 12. Tables
+ * - 13. Typography 
+ * - 14. Misc
+ * - 15. Specific page styles
+ * - 16. Browser fixes
+ *	
+ * @author Jamie Ferguson
+ * @date September 2011
+ */
+
+
+/* ------------------------------ */ 
+/* ! 00. References               */
+/* ------------------------------ */
+
+
+/* ------------------------------ */ 
+/* ! 01. Reset                    */
+/* ------------------------------ */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content: ""; content: none; }
+
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+
+input, select { vertical-align: middle; }
+
+
+
+/* ------------------------------ */ 
+/* ! 02. Base/Useful styles       */
+/* ------------------------------ */
+
+/**
+ * Font normalization inspired by YUI Library's fonts.css: developer.yahoo.com/yui/
+ */
+
+body { font:15px/1.231 sans-serif; *font-size:small; } /* Hack retained to preserve specificity */
+select, input, textarea, button { font:99% sans-serif; }
+
+/* Normalize monospace sizing:
+   en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome */
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+
+
+/**
+ * Minimal base styles.
+ */
+
+/* Always force a scrollbar in non-IE */
+html { overflow-y: scroll; }
+
+/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
+a:hover, a:active { outline: none; }
+
+ul, ol { margin-left: 2em; }
+ol { list-style-type: decimal; }
+
+/* Remove margins for navigation lists */
+nav ul, nav li { margin: 0; list-style:none; list-style-image: none; }
+
+small { font-size: 85%; }
+strong, th { font-weight: bold; }
+
+td { vertical-align: top; }
+
+/* Set sub, sup without affecting line-height: gist.github.com/413930 */
+sub, sup { font-size: 75%; line-height: 0; position: relative; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+pre {
+  /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+  white-space: pre; white-space: pre-wrap; word-wrap: break-word;
+  padding: 15px;
+}
+
+textarea { overflow: auto; } /* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+
+.ie6 legend, .ie7 legend { margin-left: -7px; } 
+
+/* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; }
+.ie7 input[type="checkbox"] { vertical-align: baseline; }
+.ie6 input { vertical-align: text-bottom; }
+
+/* Hand cursor on clickable input elements */
+label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+button, input, select, textarea { margin: 0; }
+
+/* Colors for form validity */
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid {
+   border-radius: 1px; -moz-box-shadow: 0px 0px 5px red; -webkit-box-shadow: 0px 0px 5px red; box-shadow: 0px 0px 5px red;
+}
+.no-boxshadow input:invalid, .no-boxshadow textarea:invalid { background-color: #f0dddd; }
+
+
+/* These selection declarations have to be separate
+   No text-shadow: twitter.com/miketaylr/status/12228805301
+   Also: hot pink! */
+::-moz-selection{ background: #5ebcff; color:#fff; text-shadow: none; }
+::selection { background:#0000e2; color:#fff; text-shadow: none; }
+
+/* j.mp/webkit-tap-highlight-color */
+a:link { -webkit-tap-highlight-color: #FF5E99; }
+
+/* Make buttons play nice in IE:
+   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {  width: auto; overflow: visible; }
+
+/* Bicubic resizing for non-native sized IMG:
+   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
+.ie7 img { -ms-interpolation-mode: bicubic; }
+
+/* Other useful styles */
+.clear {
+	clear: both;
+}
+.left {
+	display: inline;
+	float: left !important;
+}
+.right {
+	display: inline;
+	float: right !important;
+}
+.full {
+	width: 100%;
+}
+.center {
+	text-align: center;
+}
+.relative {
+	position: relative;
+}
+
+
+
+/* ------------------------------ */ 
+/* ! 03. Grid framework           */
+/* ------------------------------ */
+
+.columnset {
+	overflow: hidden
+}
+
+.column {
+	display: inline;
+	float: left;
+	margin:0 2%;
+	text-align: right;
+	width: 46%;
+}
+.column-2 {
+	width: 60%;
+}
+.column-left {
+	text-align: left;
+}
+.column-full {
+	width: 100%;
+}
+.first {
+	clear:left;
+	margin-left: 0;
+}
+.last {
+	margin-right: 0;
+}
+.column-center {
+	display: block;
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+
+/* ------------------------------ */ 
+/* ! 04. Icon framework           */
+/* ------------------------------ */
+
+.icon {
+	display: inline-block;
+	height: 0;
+	margin: 0;
+	overflow: hidden;
+	padding: 24px 0 0 0;
+	width: 24px;
+}
+.icon:hover {
+	/*background-position: -24px 0;*/
+	background-color: #DDD;
+}
+.icon-share-fb {
+	background-color: #CCC;
+}
+.icon-share-tw {
+	background-color: #CCC;
+}
+.icon-share-em {
+	background-color: #CCC;
+}
+
+
+
+/* ------------------------------ */ 
+/* ! 05. Layout styles            */
+/* ------------------------------ */
+
+/* apply a natural box layout model to all elements */
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.unborderbox {
+	box-sizing: content-box;
+}
+
+
+html, body {
+	height: 100%;
+}
+
+#container {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -60px; /* the bottom margin is the negative value of the footer's height */
+	position: relative;
+	z-index: 10;
+}
+#main {
+	overflow: hidden;
+	position: relative;
+	padding-bottom: 40px;
+}
+#header {
+	min-height: 90px;
+	overflow: hidden;
+	position: relative;
+	margin: 0 0 40px;
+}
+.header-image #header {
+	background: #ffffff top center fixed no-repeat;
+	height: 900px;
+	overflow: hidden;
+	box-shadow: inset 0 0 5px rgba (0, 0, 0, 0.5);
+}
+.header-image #main-nav {
+	position: fixed;
+}
+#header .brand-block {
+	color:#fff;
+	position: fixed;
+	text-align:center;
+	height:700px;
+	width: 100%;
+}
+.logo-large {
+	margin: 0 auto 40px;
+	text-align: center;
+}
+.logo-large img {
+	height: 90%;
+	width: 90%;
+	max-width: 750px;
+}
+.art-subtitle {
+	font-family: 'Dosis';
+	font-size: 18px;
+	font-weight: 100;
+	letter-spacing: .35em;
+	text-transform: uppercase;
+}
+.contain {
+	margin-left: auto;
+	margin-right: auto;
+	width:960px;
+}
+.push {
+	height: 60px;
+}
+#footer {
+	background: #242424;
+	color: #FFF;
+	clear: both;
+	font-size: 9px;
+	height: 60px;
+	padding: 20px;
+	text-transform: uppercase;
+	width: 100%;
+	z-index: 100;
+}
+.home #footer,
+.home .push,
+.page-shop #footer,
+.tax-product-type #footer,
+.page-shop .push,
+.tax-product-type .push,
+.page-collection #footer,
+.page-collection .push {
+	display: none;
+}
+
+
+/* ------------------------------ */ 
+/* ! 06. Nav styles               */
+/* ------------------------------ */
+
+#main-nav {
+	height: 90px;
+	top: 0;
+	left: 50%;
+	margin-left: -480px;
+	position: fixed;
+	z-index: 100;
+	background: white;
+	border-bottom: solid 1px #555;
+}
+.navigation-reversed #main-nav {
+	background: none;
+	border-bottom-color: #FFF;
+}
+.admin-bar #main-nav,
+.fixed.admin-bar #shop-sub-nav {
+	top:28px;
+}
+
+#menu-main-nav {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin-left: 180px;
+}
+
+.nav ul,
+.nav li,
+.nav a {
+	color: #ccc;
+	float: left;
+	font-size: 0;
+	font-weight: 600;
+	height: 40px;
+	letter-spacing: 1px;
+	line-height: 10px;
+	text-transform: uppercase;
+}
+.logo,
+.nav a {
+	border-bottom: 3px solid transparent;
+	color: #999;
+	font-size: 12px;
+	font-weight: 600;
+	margin: 0 0 0 35px;
+	outline: none;
+	text-decoration: none;
+	text-transform: uppercase;
+	-webkit-transition: all 0.2s linear;
+}
+#shop-sub-nav a {
+	font-size:11px;
+}
+
+.logo:hover,
+#header a:hover {
+	border-bottom-color: #dadada;
+	color: #666;
+	text-decoration: none;
+}
+
+.current_page_item a,
+.current_page_parent a,
+.current-menu-item a,
+.page-shop .menu-item-31 a,
+.tax-product-type .menu-item-31 a {
+	color: #333;
+	font-weight: 600;
+}
+#main-nav .current_page_item a,
+#main-nav .current_page_parent a,
+.page-shop .menu-item-31 a,
+.tax-product-type .menu-item-31 a {
+	border-bottom: 3px solid #555;
+}
+
+.navigation-reversed #main-nav a,
+.navigation-reversed #main-nav a:hover {
+	color: #FFF;
+}
+.navigation-reversed .logo:hover,
+.navigation-reversed #main-nav a:hover {
+	border-bottom-color: rgba(255,255,255,.7);
+}
+.navigation-reversed #main-nav .current_page_item a,
+.navigation-reversed #main-nav .current_page_parent a {
+	border-bottom-color: #FFF;
+}
+
+#shop-sub-nav {
+	background: none;
+	border-bottom: 1px solid #FFF;
+	height: 50px;
+	top: 90px;
+	left: 50%;
+	margin-left: -480px;
+	position: absolute;
+	text-align: right;
+	z-index: 100;
+}
+#shop-sub-nav .logo {
+	opacity: 0;
+	visibility: visible;
+}
+#shop-sub-nav a {
+	border-bottom: none;
+}
+#menu-shop-sub-navigation {
+	padding: 20px 0;
+	position: absolute;
+	margin-left: 120px;
+	right: 0;
+	-webkit-transition: padding .1s linear;
+}
+
+#shop-sub-nav ul,
+#shop-sub-nav li,
+#shop-sub-nav a {
+	height: auto;
+}
+
+/* .fixed  */
+.page-shop #header,
+.tax-product-type #header {
+	overflow: visible;
+	margin-bottom: 80px;
+}
+.page-shop #main-nav,
+.tax-product-type #main-nav {
+	position: absolute;
+	top: 0;
+}
+
+.fixed #shop-sub-nav {
+	background: rgba(255,255,255,.9);
+	position: fixed;
+	top: 0;
+}
+.fixed #menu-shop-sub-navigation {
+	padding-right: 20px;
+}
+.fixed #shop-sub-nav .logo {
+	opacity: 1;
+	visibility: visible;
+}
+
+
+
+
+/* ------------------------------ */ 
+/* ! 07. Heading styles           */
+/* ------------------------------ */
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+h1 {
+	color: #555;
+	font-size: 17px;
+	font-weight: 600;
+	line-height: 22px;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+h2 {
+	color: #999;
+	font-size: 28px;
+	font-weight: 100;
+	line-height: 36px;
+	text-transform: none;
+	margin-bottom: 20px;
+}
+h3 {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 22px;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+h4 {
+	font-size: 14px;
+	line-height: 18px;
+}
+#main-nav {
+	overflow: hidden;
+}
+#main-nav .logo {
+	background: url(/site/themes/falve/images/logo.png) no-repeat 0 0;
+	bottom: 0;
+	height:58px;
+	display:inline;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 31px;
+	width:153px;
+}
+#shop-sub-nav .logo {
+	background: url(/site/themes/falve/images/logo-sub-nav.png) no-repeat 0 0;
+	top: 10px;
+	height:24px;
+	left: 20px;
+	margin: 0;
+	position: absolute;
+	width:110px;
+}
+#main-nav .logo:hover {
+}
+.navigation-reversed #main-nav .logo {
+	background-image:  url(/site/themes/falve/images/logo-reversed.png);
+}
+
+
+
+/* ------------------------------ */ 
+/* ! 08. List styles              */
+/* ------------------------------ */
+
+ol,ul {
+	margin: 0 0 1.5em;
+}
+
+ol li {
+}
+
+ul {
+}
+
+ul li {
+}
+
+.inline {
+	margin: 0;
+}
+.inline li {
+	display: inline;
+	list-style: none;
+}
+
+
+/* ------------------------------ */ 
+/* ! 09. Images                   */
+/* ------------------------------ */
+
+img {
+	border:none;
+}
+img.left {
+	margin:0 10px 10px 0;
+}
+img.right {
+	margin:0 0 10px 10px;
+}
+.loading,
+.product.loading:after {
+	background: #fafafa url(/site/themes/falve/images/loading.gif) no-repeat 50% 50%;
+}
+.product.loading {
+	background: none;
+	display: block;
+	float: left;
+	position: relative;
+}
+.product.loading img {
+	opacity: .9;
+}
+.product.loading:after {
+	bottom: 0;
+	content: '';
+	height: 40px;
+	position: absolute;
+	right: 0;
+	width: 40px;
+}
+
+
+/* ------------------------------ */ 
+/* ! 10. Links                    */
+/* ------------------------------ */
+
+a {
+	color: #000000;
+	text-decoration: none;
+	-webkit-transition: color 0.2s linear;
+}
+a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.columnset a,
+.columnset a:active,
+.columnset a:visited {
+	color: #666;
+}
+.columnset:hover a {
+	color: #222222;
+	text-decoration: underline;
+}
+.columnset a:hover {
+	background: #fff;
+	color: #000000;
+	text-decoration: underline;
+	-webkit-transition: none;
+}
+
+
+/* ------------------------------ */ 
+/* ! 11. Forms                    */
+/* ------------------------------ */
+.button {
+	background: #f6f6f6;
+	border: solid 1px #c5c5c0;
+	color: #818159;
+	font-size: 11px;
+	letter-spacing: 2px;
+	padding: 5px 35px;
+	text-transform: uppercase;
+}
+.button:hover {
+	border-color: #ddd;
+	background-color: #f0f0f0;
+	color: #818159;
+	text-decoration: none;
+}
+.button:focus,
+.button:active {
+	box-shadow: inset 1px 1px 6px rgba(0,0,0,.1);
+}
+.req {
+	color: #b40000;
+	display: inline;
+}
+
+/* Fields */
+.field {
+	display: inline;
+	float: left;
+	padding:10px 0 10px 25px;
+}
+.field-half {
+	width:182px;
+}
+.field-first {
+	clear: left;
+	padding-left: 0;
+}
+.field label {
+	display: inline;
+	float: left;
+	font-size: 1.2em;
+	padding: 2px 0;
+	width: 355px;
+}
+.field-half a {
+	margin: 26px 0 0 0;
+	float: left;
+}
+
+/* Textboxes */
+
+.textbox {
+	background: #FFF;
+	border: solid 1px #888;
+	clear: left;
+	color: #888;
+	font-size: 1.2em;
+	padding: 5px 20px 5px 5px;
+	width: 360px;
+	border-radius: 4px;
+}
+.field-half .textbox {
+	width:155px;
+}
+
+
+
+
+/* ------------------------------ */ 
+/* ! 12. Tables                   */
+/* ------------------------------ */
+
+
+/* ------------------------------ */ 
+/* ! 13. Typography               */
+/* ------------------------------ */
+
+body {
+	font-size: 13px;
+	line-height: 170%;
+	-webkit-font-smoothing: antialiased;
+}
+
+body, select, input, textarea {
+	color: #444;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.dosis {
+	font-family: 'Dosis', sans-serif;
+}
+
+em,i {
+	font-style: italic;
+}
+
+strong,b {
+	font-weight: bold;
+}
+
+p {
+	margin: 0 0 1.5em;
+}
+
+.small {
+	font-size: 1em;
+}
+
+/* ------------------------------ */ 
+/* ! 14. Misc                     */
+/* ------------------------------ */
+
+.carousel-wrap {
+	background: #fff;
+	position: relative;
+}
+.carousel {
+	height: 300px;
+	margin: 0 0 40px;
+	overflow: hidden;
+}
+.carousel-small .carousel {
+	height: 175px;
+}
+.carousel li {
+	left: 0;
+	position: absolute;
+	top: 0;
+}
+.carousel-nav {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	text-align: center;
+	width: 100%;
+	z-index: 100;
+}
+.carousel-nav a {
+	border-radius: 10px;
+	background: none;
+	border: solid 2px #FFF;
+	opacity: .7;
+	display: inline-block;
+	height: 10px;
+	margin: 0 3px;
+	text-indent: -5000px;
+	width: 10px;
+	-webkit-transition: all 0.2s linear;
+}
+.carousel-nav a.activeSlide {
+	background: #FFF;
+	opacity: 1;
+}
+.carousel-nav a:hover {
+	opacity: 1;
+}
+.home {
+	background: #333;
+}
+.home #main .carousel-wrap {
+	background: none;
+}
+.home #main .carousel-large,
+.home #main .carousel-large .carousel {
+	top: 89px;
+}
+.home #main .carousel-large .carousel img {
+	clip: rect(rect(89px,5000px,1130px,0));
+}
+.home .carousel-large,
+.home .carousel-large .carousel {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	position: fixed;
+	left: 0;
+	top: 0;
+}
+.carousel-item {
+	background: #fff no-repeat 50% 50%;
+	background-size: cover;
+	width:100%;
+	height:100%;
+	overflow: hidden;
+	text-align: center;
+}
+.home .carousel-large .carousel-item,
+.home .carousel-large .carousel-image {
+
+	width: 100% !important;
+	height: 100% !important;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.overlay-image {
+	display: table;
+	height: 100%;
+	padding-top: 100px;
+	width: 100%;
+}
+.overlay-image span {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.collection-images {
+	float: left;
+	margin: -9px 0 9px -9px;
+	overflow: hidden;
+}
+.collection-images img,
+.collection-images iframe {
+	float: left;
+	margin: 9px 0 0 9px;
+}
+.collection-images .left img {
+	clear: left;
+}
+img.collection-1w1h {
+	margin-bottom: 1px !important;
+}
+.infinitescroll {
+	overflow: hidden;
+	padding-bottom: 70px;
+}
+#infscr-loading {
+	bottom: 0;
+	clear: both;
+	height: 70px;
+	left: 0;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+#infscr-loading img {
+	float: none;
+	position: absolute;
+	top: 20px;
+}
+#infscr-loading div {
+	color: #ccc;
+	font-size: 11px;
+	letter-spacing: 1px;
+	left: 0;
+	position: absolute;
+	text-transform: uppercase;
+	top: 55px;
+	width: 100%;
+}
+.shop-images {
+	margin: -8px 0 8px -8px;
+}
+.shop-images .item {
+	display: block;
+	float: left;
+	margin: 8px 0 0 8px;
+	position: relative;
+	overflow: hidden;
+}
+.shop-images .clear {
+	margin: 0;
+}
+.shop-images img {
+	float: left;
+}
+.shop-images .info  {
+	background: rgba(0,0,0,.5);
+	color: #FFF;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	text-align: center;
+	text-transform: uppercase;
+	top: 0;
+	width:100%;
+	-webkit-transition: opacity .2s linear;
+}
+.shop-images .info-copy-wrapper {
+	height: 270px;
+	left: 0;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+}
+.shop-images .info-copy-container {
+	display: table;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+.shop-images .info-copy {
+  display: table-cell;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+}
+.shop-images .info h4 {
+	border-top: solid 2px #FFF;
+	border-bottom: solid 2px #FFF;
+	font-size: 14px;
+	padding: 6px 0;
+	margin: 10px 25px;
+}
+.shop-images .info .price  {
+	display: block;
+	font-size: 12px;
+	font-weight: 600;
+	margin: 15px 0;
+}
+.shop-images .info .price small {
+	font-size: 10px;
+	font-weight: 400;
+	padding-left: .3em;
+}
+.shop-images .info .price:after,
+.shop-images .info .price:before {
+	content: "•";
+	padding: 0 10px;
+	display: inline-block;
+}
+.shop-images .info .tag-bg {
+	background: #999;
+	border-radius: 140px;
+	height: 50px;
+	position: relative;
+	margin: 10px auto 0; 
+	width: 50px;
+}
+.shop-images .info .sold-out {
+	background: #1aa598;
+}
+.shop-images .info .sale {
+	background: #4433ff;
+} 
+.shop-images .info .tag { 
+	font-size: 10px;
+	display: table;
+	height: 50px;
+	line-height: 12px;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 50px;
+}
+.shop-images .info .tag b {
+  display: table-cell;
+  font-weight: 700;
+  padding: 0 3px;
+  text-align: center;
+  vertical-align: middle;
+}
+.item:hover .info {
+	display: block;
+	opacity: 1;
+}
+.product-content {
+	margin: 8px 0 0 8px;
+	overflow: hidden;
+	position: relative;
+}
+.product-content .product-image {
+	float: left;
+	margin: 0 30px 0 0;
+}
+.product-content .product-image img {
+	margin: 0;
+}
+.product-content .product-info {
+	padding: 45px 45px;
+}
+.product-content .gallery-images {
+	overflow: hidden;
+	margin: 0 0 15px;
+}
+.product-content .gallery-images a {
+	text-decoration: none;
+}
+.product-content .gallery-images img {
+	margin: 0 10px 10px 0;
+}
+.product-info p {
+	margin-bottom: 10px;
+}
+.shop-detail {
+	float: left;
+	width: 100%;
+}
+.product-info .price {
+	color: #555;
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 25px;
+}
+.product-info .price small {
+	font-size: 11px;
+	font-weight: 400;
+}
+.close {
+	background: url(/site/themes/falve/images/close.png) no-repeat 0 0;
+	cursor: pointer;
+	display: block;
+	height: 19px;
+	opacity: .7;
+	position: absolute;
+	right:12px;
+	top:14px;
+	width: 19px;
+}
+.close:hover {
+	opacity: 1;
+}
+
+
+/* ------------------------------ */ 
+/* ! 15. Helper classes           */
+/* ------------------------------ */
+
+/* Image replacement */
+.ir {
+	display: block;
+	text-indent: -999em;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	text-align: left;
+	direction: ltr;
+}
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+  www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
+}
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* The Magnificent Clearfix: Updated to prevent margin-collapsing on child elements.
+   j.mp/bestclearfix */
+.clearfix:before, .clearfix:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+.clearfix:after { clear: both; }
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
+
+
+
+/* ------------------------------ */ 
+/* ! 16. Specific page styles     */
+/* ------------------------------ */
+
+@media only screen and (max-width: 960px) {
+
+	.contain {
+		overflow: hidden;
+		width: 100%;
+	}
+	#main-nav,
+	#shop-sub-nav {
+		margin-left: 0;
+		left: 0;
+	}
+	#main-nav ul {
+		right:20px;
+	}
+	#shop-sub-nav ul {
+		padding-right: 20px;
+	}
+	#main-nav .logo {
+		left:20px;
+	}
+	.collection-images {
+		float: none;
+		text-align: center;
+	}
+	.collection-images  img.left {
+		float: none !important;
+		display: inline !important;
+	}
+	.overlay-image img {
+		width: 80%;
+	}
+	.header-image #header {
+		background-size: cover;
+		height: 500px;
+	}
+	#header .brand-block{
+		height: 500px;
+	}
+
+}
+
+
+
+
+
+/* ------------------------------ */ 
+/* ! 17. Browser fixes            */
+/* ------------------------------ */
